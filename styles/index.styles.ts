@@ -285,6 +285,22 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     fontStyle: 'italic',
   },
+  authBtn: {
+    position: "absolute",
+    top: 16,
+    right: 16,
+    zIndex: 50,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 10,
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: "#E5E5E5",
+  },
+  authBtnText: {
+    fontSize: 14,
+    fontWeight: "600",
+  },
 });
 
 

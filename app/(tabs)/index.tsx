@@ -8,6 +8,8 @@ import { styles } from "../../styles/index.styles";
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { useRef, useEffect } from "react";
 
+import { router } from "expo-router";
+
 // AFTER: Get screen dimensions for responsive sizing
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -106,6 +108,9 @@ export default function Index() {
         {/* BEFORE: Empty header section with TODO comment */}
         {/* AFTER: Added logo image for consistency with Calendar tab */}
         <View style={styles.headerSection}>
+          <Pressable onPress={() => router.push("/sign-in")} style={styles.authBtn}>
+      <Text style={styles.authBtnText}>Sign in</Text>
+    </Pressable>
           <Image
             source={require('../../assets/images/shpemaeslogo.png')}
             style={styles.logo}
