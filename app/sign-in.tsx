@@ -12,6 +12,9 @@ import {
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles as appStyles} from "../styles/index.styles";
+import { auth } from "../utils/firebase"; // adjust path to where you created it
+import { sendSignInLinkToEmail } from "firebase/auth";
+console.log("Firebase auth initialized:", !!auth);
 
 function isValidEmail(email: string) {
   // simple, practical email check (not perfect, but good UX)
@@ -51,8 +54,20 @@ export default function SignIn() {
     try {
       setStatus("sending");
 
-      // ✅ Later: replace this with Firebase sendSignInLinkToEmail(...)
-      await new Promise((r) => setTimeout(r, 600));
+    // Expo web dev server is typically localhost:8081
+    // If yours is different, change it here.
+    const actionCodeSettings = {
+      url: "http://localhost:8081/finishSignIn",
+      handleCodeInApp: true,
+    };
+
+    await sendSignInLinkToEmail(auth, normalizedEmail, actionCodeSettings);
+
+    // Web-only: store email for the finish step
+    // (On mobile later we'll use AsyncStorage instead.)
+    if (typeof window !== "undefined" && window.localStorage) {
+      window.localStorage.setItem("emailForSignIn", normalizedEmail);
+    }
 
       setStatus("sent");
       Alert.alert("Check your email", "We sent you a sign-in link. Open it to continue.");
